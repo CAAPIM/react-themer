@@ -8,7 +8,7 @@
 
 ## Installation
 
-```javascript
+```js
 npm install react-themer --save
 ```
 
@@ -36,7 +36,7 @@ export default themer(theme)(Header);
 ```
 
 #### Component Usage
-```
+```js
 import React from 'react';
 import { render } from 'react-dom';
 import Header from './Header';
@@ -45,7 +45,7 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 ```
 
 #### Adding Middleware
-```
+```js
 import React from 'react';
 import { render } from 'react-dom';
 import themer from 'themer';
@@ -63,7 +63,7 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 
 ### Adding a Custom react-themer Instance
 #### themer.js
-```
+```js
 import { create as createThemer } from 'themer';
 import { create as createReactThemer } from 'react-themer';
 
@@ -82,7 +82,7 @@ export default reactThemer;
 ```
 
 #### Using Decorator in Component
-```
+```js
 import React from 'react';
 import themer from '../themer';
 import theme from './styles.(css|scss|jss.js)';
