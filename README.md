@@ -46,7 +46,7 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 
 #### Adding Middleware
 ```
-mport React from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import themer from 'themer';
 import Header from './Header';
