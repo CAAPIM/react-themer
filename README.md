@@ -4,17 +4,16 @@
 [![codecov](https://codecov.io/gh/shanedasilva/retheme/branch/master/graph/badge.svg)](https://codecov.io/gh/shanedasilva/retheme)
 [![dependencies](https://david-dm.org/shanedasilva/retheme.svg)](https://david-dm.org/shanedasilva/retheme)
 [![devDependency Status](https://david-dm.org/shanedasilva/retheme/dev-status.svg)](https://david-dm.org/shanedasilva/retheme#info=devDependencies)
+************************************************************
 
 
 ## Installation
-
 ```js
 npm install react-themer --save
 ```
-
+************************************************************
 
 ## Usage
-
 ### Basic Usage
 #### Component Definition
 ```js
@@ -99,10 +98,9 @@ const Header = (props) => {
 
 export default themer(theme)(Header);
 ```
-
+************************************************************
 
 ## Development
-
 |`npm run <script>`|Description|
 |------------------|-----------|
 |`lint`| Runs eslint against all `.js` files in `./src` folder.|
@@ -112,11 +110,17 @@ export default themer(theme)(Header);
 |`precommit`|Runs `lint`, `test` commands.|
 |`commit`|Uses [commitizen](https://github.com/commitizen/cz-cli) to do proper tagged commits.|
 |`release`|Uses [semantic-release](https://github.com/semantic-release/semantic-release) to trigger releases.|
+************************************************************
 
-
-## Contributing
+## How Can You Contribute
+Your contributions are welcome and much appreciated. To learn more, see the [Contribution Guidelines](https://github.com/CAAPIM/JS-OAuth-Library/blob/develop/CONTRIBUTING.md).
 
 This project supports `commitizen`. You can use `npm run commit` to run the local instance of `commitizen` or `git cz` if you have it installed globally.
 
 Alternatively, if you are simply using `git commit`, you must follow this format:
 `git commit -m "<type>: <subject>"`
+************************************************************
+
+## License
+Copyright (c) 2016 CA. All rights reserved.
+This software may be modified and distributed under the terms of the MIT license. To learn more, see the [License](https://github.com/CAAPIM/JS-OAuth-Library/blob/develop/LICENSE).
