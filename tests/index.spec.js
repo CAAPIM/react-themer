@@ -22,13 +22,13 @@ describe('reactThemer', () => {
     const renderer = ReactTestUtils.createRenderer();
     const themerInstance = themer;
 
-    themer.setTheme([theme]);
+    themerInstance.setTheme([theme]);
 
-    themer.setMiddleware((component) => {
+    themerInstance.setMiddleware((component) => {
       return component;
     });
 
-    const themerReactClass = createReactThemer(themer)(theme)(TestComponent);
+    const themerReactClass = createReactThemer(themerInstance)(theme)(TestComponent);
     const renderedComponent = renderer.render(React.createElement(themerReactClass));
 
     expect(renderedComponent.type.displayName).to.exist;

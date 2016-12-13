@@ -33,15 +33,15 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
       }
 
       if (!generatedThemeVars) {
-        generatedThemeVars = themer.getThemeVariables(globalTheme);
+        generatedThemeVars = themerInstance.getThemeVariables(globalTheme);
       }
 
       if (!generatedThemeStyles && generatedThemeVars) {
-        generatedThemeStyles = themer.getThemeStyles(generatedThemeVars);
+        generatedThemeStyles = themerInstance.getThemeStyles(generatedThemeVars);
       }
 
       if (!DecoratedComponent) {
-        DecoratedComponent = themer.resolveMiddleware(component);
+        DecoratedComponent = themerInstance.resolveMiddleware(component);
       }
     }
 
