@@ -1,0 +1,10 @@
+[options]
+sharedmemory.hash_table_pow=19
+
+[ignore]
+.*/dist/.*
+.*/tests/.*
+.*/test/.*
+
+[libs]
+./flow-typed/themer.js

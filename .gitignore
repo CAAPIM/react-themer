@@ -1,0 +1,18 @@
+# Logs
+*.log
+
+# Coverage tools
+coverage
+flow-coverage
+
+# Dependency directory
+node_modules
+
+# Editor artifacts
+.idea
+
+# Other
+.DS_Store
+
+# Builds
+lib
