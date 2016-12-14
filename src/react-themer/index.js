@@ -50,8 +50,8 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
         <DecoratedComponent
           {...this.props}
           theme={{
-            styles: generatedThemeVars,
-            variables: generatedThemeStyles,
+            variables: generatedThemeVars,
+            styles: generatedThemeStyles,
           }}
         />
       );
