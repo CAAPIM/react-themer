@@ -10,7 +10,7 @@ import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from 'recompose';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
-  const componentTheme = component.theme || {};
+  const componentTheme = component.theme || null;
   const themerInstance = customThemer || themer;
 
   let DecoratedComponent;
@@ -29,7 +29,11 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
 
       // Set the theme instance if it's not already been set
       if (!generatedThemeVars && !generatedThemeStyles && !DecoratedComponent) {
-        themerInstance.setTheme([componentTheme, theme]);
+        if (componentTheme) {
+          themerInstance.setTheme([componentTheme, theme]);
+        } else {
+          themerInstance.setTheme([theme]);
+        }
       }
 
       if (!generatedThemeVars) {
