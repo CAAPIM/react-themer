@@ -10,6 +10,10 @@ import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from 'recompose';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
+  const ThemerComponent =
+    component.theme && component.themerWrappedComponent ?
+      component.themerWrappedComponent :
+      component;
   const componentTheme = component.theme || null;
   const themerInstance = customThemer || themer;
 
@@ -18,7 +22,8 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
   let generatedThemeStyles = null;
 
   return class extends Component {
-    static displayName = getDisplayName(component);
+    static themerWrappedComponent = ThemerComponent;
+    static displayName = `Themer(${getDisplayName(ThemerComponent)})`;
 
     static contextTypes = {
       theme: PropTypes.object,
@@ -45,7 +50,7 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
       }
 
       if (!DecoratedComponent) {
-        DecoratedComponent = themerInstance.resolveMiddleware(component);
+        DecoratedComponent = themerInstance.resolveMiddleware(ThemerComponent);
       }
     }
 
