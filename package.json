@@ -1,8 +1,16 @@
 {
   "name": "react-themer",
   "version": "1.0.0",
+  "author": "CA Technologies",
   "main": "lib/index.js",
+  "keywords": [
+    "react",
+    "theme",
+    "themer",
+    "ca"
+  ],
   "scripts": {
+    "codecov": "codecov",
     "lint": "eslint ./src/ --ext .js",
     "test": "mocha --reporter nyan --compilers js:babel-core/register ./tests/**/**/*.js",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover --include './src/**/**/*.js' _mocha -- --reporter nyan './tests/**/*.spec.js'",
