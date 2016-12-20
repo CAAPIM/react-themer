@@ -10,20 +10,27 @@ import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from 'recompose';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
-  const ThemerComponent =
-    component.theme && component.themerWrappedComponent ?
-      component.themerWrappedComponent :
-      component;
-  const componentTheme = component.theme || null;
+  let rawThemerAttrs;
+  if (component.rawThemerAttrs) {
+    rawThemerAttrs = {
+      component: component.rawThemerAttrs.component,
+      themes: [...component.rawThemerAttrs.themes, theme],
+    };
+  } else {
+    rawThemerAttrs = {
+      component,
+      themes: [theme],
+    };
+  }
+
   const themerInstance = customThemer || themer;
 
-  let DecoratedComponent;
-  let generatedThemeVars = null;
-  let generatedThemeStyles = null;
+  let resolvedAttrs;
+  let themesToResolve;
 
   return class extends Component {
-    static themerWrappedComponent = ThemerComponent;
-    static displayName = `Themer(${getDisplayName(ThemerComponent)})`;
+    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component)})`;
+    static rawThemerAttrs = rawThemerAttrs;
 
     static contextTypes = {
       theme: PropTypes.object,
@@ -32,38 +39,24 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
     componentWillMount() {
       const { theme: globalTheme } = this.context;
 
-      // Set the theme instance if it's not already been set
-      if (!generatedThemeVars && !generatedThemeStyles && !DecoratedComponent) {
-        if (componentTheme) {
-          themerInstance.setTheme([componentTheme, theme]);
+      if (!resolvedAttrs) {
+        // Merge global theme vars with the current theme if necessary
+        if (globalTheme && globalTheme.variables) {
+          themesToResolve = [{ variables: globalTheme.variables }, ...rawThemerAttrs.themes];
         } else {
-          themerInstance.setTheme([theme]);
+          themesToResolve = rawThemerAttrs.themes;
         }
-      }
 
-      if (!generatedThemeVars) {
-        generatedThemeVars = themerInstance.getThemeVariables(globalTheme);
-      }
-
-      if (!generatedThemeStyles && generatedThemeVars) {
-        generatedThemeStyles = themerInstance.getThemeStyles(generatedThemeVars);
-      }
-
-      if (!DecoratedComponent) {
-        DecoratedComponent = themerInstance.resolveMiddleware(ThemerComponent);
+        // Fetch the resolved Component and theme from the themerInstance
+        resolvedAttrs = themerInstance.resolveAttributes(rawThemerAttrs.component, themesToResolve);
       }
     }
 
     render() {
-      return (
-        <DecoratedComponent
-          {...this.props}
-          theme={{
-            variables: generatedThemeVars,
-            styles: generatedThemeStyles,
-          }}
-        />
-      );
+      return React.createElement(resolvedAttrs.snippet, {
+        ...this.props,
+        theme: resolvedAttrs.theme,
+      });
     }
   };
 };
