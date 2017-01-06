@@ -7,7 +7,7 @@
 
 import { themer } from 'themer';
 import React, { Component, PropTypes } from 'react';
-import { getDisplayName } from 'recompose';
+import { getDisplayName } from '../utils';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
   let rawThemerAttrs;
