@@ -23,10 +23,10 @@
   },
   "dependencies": {
     "lodash": "^4.17.2",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "recompose": "^0.20.2",
     "themer": "git+ssh://git@github.com:CAAPIM/themer.git"
+  },
+  "peerDependencies": {
+    "react": ">=0.14"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -44,6 +44,8 @@
     "isparta": "4.0.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "3.1.2",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",
     "semantic-release": "6.3.2",
     "sinon": "1.17.6",
