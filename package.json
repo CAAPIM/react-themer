@@ -9,6 +9,7 @@
     "themer",
     "ca"
   ],
+  "license": "MIT",
   "scripts": {
     "codecov": "codecov",
     "lint": "eslint ./src/ --ext .js",
