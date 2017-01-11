@@ -28,6 +28,33 @@ describe('reactThemer', () => {
     expect(renderedComponent.props.theme.variables).to.exist();
   });
 
+  it('should wrap the original component if used twice', () => {
+    const themerReactClass = reactThemer(theme)(TestComponent);
+    const themerReactClass2 = reactThemer(theme)(themerReactClass);
+    expect(themerReactClass2.displayName).to.equal('Themer(TestComponent)');
+  });
+
+  it('should ignore the previous rawThemerAttrs if component is not defined', () => {
+    const themerReactClass = reactThemer(theme)(TestComponent);
+    delete themerReactClass.rawThemerAttrs.component;
+    const themerReactClass2 = reactThemer(theme)(themerReactClass);
+    expect(themerReactClass2.displayName).to.equal('Themer(Themer(TestComponent))');
+  });
+
+  it('should ignore the previous rawThemerAttrs if themes is not defined', () => {
+    const themerReactClass = reactThemer(theme)(TestComponent);
+    delete themerReactClass.rawThemerAttrs.themes;
+    const themerReactClass2 = reactThemer(theme)(themerReactClass);
+    expect(themerReactClass2.displayName).to.equal('Themer(Themer(TestComponent))');
+  });
+
+  it('should ignore the previous rawThemerAttrs if themes is not an array', () => {
+    const themerReactClass = reactThemer(theme)(TestComponent);
+    themerReactClass.rawThemerAttrs.themes = {};
+    const themerReactClass2 = reactThemer(theme)(themerReactClass);
+    expect(themerReactClass2.displayName).to.equal('Themer(Themer(TestComponent))');
+  });
+
   it('should run middleware from passed in Themer instance', () => {
     const renderer = ReactTestUtils.createRenderer();
     const themerInstance = themer;
