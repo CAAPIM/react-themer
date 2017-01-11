@@ -10,8 +10,13 @@ import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from '../utils';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
-  let rawThemerAttrs;
-  if (component.rawThemerAttrs) {
+  let rawThemerAttrs: Object;
+  if (
+    component.rawThemerAttrs &&
+    component.rawThemerAttrs.component &&
+    component.rawThemerAttrs.themes &&
+    Array.isArray(component.rawThemerAttrs.themes)
+  ) {
     rawThemerAttrs = {
       component: component.rawThemerAttrs.component,
       themes: [...component.rawThemerAttrs.themes, theme],
@@ -29,7 +34,7 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
   let themesToResolve;
 
   return class extends Component {
-    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component)})`;
+    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component) || 'Component'})`;
     static rawThemerAttrs = rawThemerAttrs;
 
     static contextTypes = {

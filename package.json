@@ -17,6 +17,7 @@
     "test": "mocha --reporter nyan --require babel-register ./tests/**/**/*.js",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover --include './src/**/**/*.js' _mocha -- --reporter nyan './tests/**/*.spec.js'",
     "flow": "flow check",
+    "flow:coverage": "flow-coverage-report -i './src/**/*.js' -t html -t text",
     "commit": "git-cz",
     "prebuild": "rimraf ./lib",
     "build": "babel --out-dir ./lib --ignore *.spec.js, ./src",
