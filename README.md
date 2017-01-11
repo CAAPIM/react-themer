@@ -1,9 +1,9 @@
 # react-themer
+[![Build Status](https://travis-ci.org/CAAPIM/react-themer.svg?branch=master)](https://travis-ci.org/CAAPIM/react-themer)
+[![codecov](https://codecov.io/gh/CAAPIM/react-themer/branch/master/graph/badge.svg)](https://codecov.io/gh/CAAPIM/react-themer)
+[![dependencies](https://david-dm.org/CAAPIM/react-themer.svg)](https://david-dm.org/CAAPIM/react-themer)
+[![devDependency Status](https://david-dm.org/CAAPIM/react-themer/dev-status.svg)](https://david-dm.org/CAAPIM/react-themer#info=devDependencies)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Build Status](https://travis-ci.org/shanedasilva/retheme.svg?branch=master)](https://travis-ci.org/shanedasilva/retheme)
-[![codecov](https://codecov.io/gh/shanedasilva/retheme/branch/master/graph/badge.svg)](https://codecov.io/gh/shanedasilva/retheme)
-[![dependencies](https://david-dm.org/shanedasilva/retheme.svg)](https://david-dm.org/shanedasilva/retheme)
-[![devDependency Status](https://david-dm.org/shanedasilva/retheme/dev-status.svg)](https://david-dm.org/shanedasilva/retheme#info=devDependencies)
 
 ## Overview
 React bindings for [themer](https://github.com/CAAPIM/themer). This library helps making react components themeable and extensible.
