@@ -4,12 +4,19 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import { expect } from 'chai';
+/* eslint-disable no-console */
+
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import ThemeProvider from '../../src/theme-provider';
 import TestComponent from '../fixtures/TestComponent';
 import theme from '../fixtures/theme';
+
+// use dirty chai to avoid unused expressions
+chai.use(dirtyChai);
+const expect = chai.expect;
 
 const props = {
   theme,
@@ -20,7 +27,7 @@ const error = console.error;
 describe('ThemeProvider', () => {
   beforeEach(() => {
     // Throw errors on console warnings to detect prop types validation
-    console.error = function(warning, ...args) {
+    console.error = (warning, ...args) => {
       if (/(Invalid prop|Failed prop type)/.test(warning)) {
         throw new Error(warning);
       }
@@ -34,20 +41,20 @@ describe('ThemeProvider', () => {
   });
 
   it('should fail prop type validation for invalid theme', () => {
-    expect(() => <ThemeProvider theme='etse' ><TestComponent /></ThemeProvider>).to.throw();
+    expect(() => <ThemeProvider theme="etse" ><TestComponent /></ThemeProvider>).to.throw();
   });
 
   it('should contain child prop', () => {
     const ProviderComponent = <ThemeProvider {...props}><TestComponent /></ThemeProvider>;
     const renderedComponent = renderer.render(ProviderComponent);
 
-    expect(renderedComponent.props.children).to.exist;
+    expect(renderedComponent.props.children).to.exist();
   });
 
   it('should not contain child prop', () => {
-    const ProviderComponent = <ThemeProvider {...props}></ThemeProvider>;
+    const ProviderComponent = <ThemeProvider {...props} />;
     const renderedComponent = renderer.render(ProviderComponent);
 
-    expect(renderedComponent.props.children).to.not.exist;
+    expect(renderedComponent.props.children).to.not.exist();
   });
 });

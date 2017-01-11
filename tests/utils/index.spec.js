@@ -4,13 +4,18 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import { expect } from 'chai';
+import chai from 'chai';
+import dirtyChai from 'dirty-chai';
 import { getDisplayName } from '../../src/utils';
 import TestComponent from '../fixtures/TestComponent';
 
+// use dirty chai to avoid unused expressions
+chai.use(dirtyChai);
+const expect = chai.expect;
+
 describe('getDisplayName', () => {
   it('should return undefined if no argument is provided', () => {
-    expect(getDisplayName()).to.not.exist;
+    expect(getDisplayName()).to.not.exist();
   });
 
   it('should return the unchanged argument if a string is passed', () => {
