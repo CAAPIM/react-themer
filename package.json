@@ -1,7 +1,7 @@
 {
   "name": "@caapim/react-themer",
   "description": "React bindings for @caapim/themer",
-  "version": "1.0.1",
+  "version": "0.0.0-development",
   "author": "CA Technologies",
   "main": "lib/index.js",
   "keywords": [
@@ -13,10 +13,11 @@
   "license": "MIT",
   "scripts": {
     "codecov": "codecov",
-    "lint": "eslint ./src/ --ext .js",
+    "lint": "eslint .",
     "test": "mocha --reporter nyan --require babel-register ./tests/**/**/*.js",
     "test:coverage": "babel-node ./node_modules/.bin/isparta cover --include './src/**/**/*.js' _mocha -- --reporter nyan './tests/**/*.spec.js'",
     "flow": "flow check",
+    "flow:coverage": "flow-coverage-report -i './src/**/*.js' -t html -t text",
     "commit": "git-cz",
     "prebuild": "rimraf ./lib",
     "build": "babel --out-dir ./lib --ignore *.spec.js, ./src",
@@ -40,6 +41,7 @@
     "codecov": "1.0.1",
     "commitizen": "2.8.6",
     "cz-conventional-changelog": "1.2.0",
+    "dirty-chai": "^1.2.2",
     "eslint": "^3.11.1",
     "eslint-config-ca": "^1.0.0",
     "flow-bin": "^0.36.0",
@@ -52,7 +54,7 @@
     "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "rimraf": "^2.5.4",
-    "semantic-release": "6.3.2",
+    "semantic-release": "^6.3.2",
     "sinon": "1.17.6",
     "validate-commit-msg": "^2.8.2"
   },
