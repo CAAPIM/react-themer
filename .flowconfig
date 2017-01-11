@@ -2,9 +2,9 @@
 sharedmemory.hash_table_pow=19
 
 [ignore]
-.*/dist/.*
+.*/coverage/.*
+.*/flow-coverage/.*
+.*/lib/.*
 .*/tests/.*
 .*/test/.*
-
-[libs]
-./flow-typed/themer.js
+.*/node_modules/findup/.*
