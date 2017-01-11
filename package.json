@@ -1,5 +1,5 @@
 {
-  "name": "react-themer",
+  "name": "@caapim/react-themer",
   "version": "1.0.0",
   "author": "CA Technologies",
   "main": "lib/index.js",
@@ -23,8 +23,8 @@
     "precommit": "npm run lint && npm run test"
   },
   "dependencies": {
-    "lodash": "^4.17.2",
-    "themer": "git+ssh://git@github.com:CAAPIM/themer.git"
+    "@caapim/themer": "^1.0.0",
+    "lodash": "^4.17.2"
   },
   "peerDependencies": {
     "react": ">=0.14"
@@ -32,14 +32,14 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
-    "babel-preset-ca": "git+ssh://git@github.com:CAAPIM/babel-preset-ca.git",
+    "babel-preset-ca": "^1.0.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "codecov": "1.0.1",
     "commitizen": "2.8.6",
     "cz-conventional-changelog": "1.2.0",
     "eslint": "^3.11.1",
-    "eslint-config-ca": "git+ssh://git@github.com:CAAPIM/eslint-config-ca.git",
+    "eslint-config-ca": "^1.0.0",
     "flow-bin": "^0.36.0",
     "husky": "^0.11.9",
     "isparta": "4.0.0",

@@ -21,7 +21,7 @@ This library is meant to be used in all CA components.
 
 ## Installation
 ```js
-npm install react-themer --save
+npm install @caapim/react-themer --save
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ npm install react-themer --save
 #### Component Definition
 ```js
 import React from 'react';
-import themer from 'react-themer';
+import reactThemer from '@caapim/react-themer';
 import theme from './styles.(css|scss|jss.js)';
 
 const Header = (props) => {
@@ -42,7 +42,7 @@ const Header = (props) => {
   );
 };
 
-export default themer(theme)(Header);
+export default reactThemer(theme)(Header);
 ```
 
 #### Component Usage
@@ -58,7 +58,7 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import themer from 'themer';
+import themer from '@caapim/themer';
 import Header from './Header';
 
 // see `themer`(https://github.com/CAAPIM/themer) for how to set middlewares
@@ -74,8 +74,8 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 ### Adding a Custom react-themer Instance
 #### themer.js
 ```js
-import { create as createThemer } from 'themer';
-import { create as createReactThemer } from 'react-themer';
+import { create as createThemer } from '@caapim/themer';
+import { create as createReactThemer } from '@caapim/react-themer';
 
 // create themer instance.
 const themer = createThemer();
@@ -122,7 +122,7 @@ export default themer(theme)(Header);
 |`release`|Uses [semantic-release](https://github.com/semantic-release/semantic-release) to trigger releases.|
 
 ## How Can You Contribute
-Your contributions are welcome and much appreciated. To learn more, see the [Contribution Guidelines](https://github.com/CAAPIM/react-themer/blob/master/CONTRIBUTING.md).
+Your contributions are welcome and much appreciated. To learn more, see the [Contribution Guidelines](CONTRIBUTING.md).
 
 This project supports `commitizen`. You can use `npm run commit` to run the local instance of `commitizen` or `git cz` if you have it installed globally.
 
@@ -131,4 +131,4 @@ Alternatively, if you are simply using `git commit`, you must follow this format
 
 ## License
 Copyright (c) 2017 CA. All rights reserved.
-This software may be modified and distributed under the terms of the MIT license. To learn more, see the [License](https://github.com/CAAPIM/react-themer/blob/master/LICENSE.md).
+This software may be modified and distributed under the terms of the MIT license. To learn more, see the [License](LICENSE.md).

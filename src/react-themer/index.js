@@ -5,7 +5,7 @@
  */
 // @flow
 
-import { themer } from 'themer';
+import { themer } from '@caapim/themer';
 import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from '../utils';
 
