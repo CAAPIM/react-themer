@@ -8,7 +8,7 @@ import chai from 'chai';
 import dirtyChai from 'dirty-chai';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import { themer } from '@caapim/themer';
+import { themer } from 'ca-ui-themer';
 import reactThemer, { create as createReactThemer } from '../src';
 import TestComponent from './fixtures/TestComponent';
 import theme from './fixtures/theme';

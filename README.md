@@ -21,7 +21,7 @@ This library is meant to be used in all CA components.
 
 ## Installation
 ```js
-npm install @caapim/react-themer --save
+npm install ca-ui-react-themer --save
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ npm install @caapim/react-themer --save
 #### Component Definition
 ```js
 import React from 'react';
-import reactThemer from '@caapim/react-themer';
+import reactThemer from 'ca-ui-react-themer';
 import theme from './styles.(css|scss|jss.js)';
 
 const Header = (props) => {
@@ -58,7 +58,7 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import themer from '@caapim/themer';
+import themer from 'ca-ui-themer';
 import Header from './Header';
 
 // see `themer`(https://github.com/CAAPIM/themer) for how to set middlewares
@@ -74,8 +74,8 @@ render(<Header content="Some content here" />, document.getElementById('app'));
 ### Adding a Custom react-themer Instance
 #### themer.js
 ```js
-import { create as createThemer } from '@caapim/themer';
-import { create as createReactThemer } from '@caapim/react-themer';
+import { create as createThemer } from 'ca-ui-themer';
+import { create as createReactThemer } from 'ca-ui-react-themer';
 
 // create themer instance.
 const themer = createThemer();
