@@ -26,7 +26,7 @@
     "precommit": "npm run lint && npm run test"
   },
   "dependencies": {
-    "ca-ui-themer": "^1.0.0",
+    "ca-ui-themer": "^1.1.0",
     "lodash": "^4.17.2"
   },
   "peerDependencies": {

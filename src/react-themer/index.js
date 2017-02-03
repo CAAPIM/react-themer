@@ -7,6 +7,7 @@
 
 import { themer } from 'ca-ui-themer';
 import React, { Component, PropTypes } from 'react';
+import { each } from 'lodash';
 import { getDisplayName } from '../utils';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
@@ -33,9 +34,11 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
   let resolvedAttrs;
   let themesToResolve;
 
-  return class extends Component {
+  class Main extends Component {
     static displayName = `Themer(${getDisplayName(rawThemerAttrs.component) || 'Component'})`;
     static rawThemerAttrs = rawThemerAttrs;
+
+    static PropTypes = {};
 
     static contextTypes = {
       theme: PropTypes.object,
@@ -43,6 +46,10 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
 
     componentWillMount() {
       const { theme: globalTheme } = this.context;
+
+      each(themerInstance.getVariants(), (value, key) => {
+        Main.PropTypes[key] = React.PropTypes.bool;
+      });
 
       if (!resolvedAttrs) {
         // Merge global theme vars with the current theme if necessary
@@ -63,5 +70,7 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
         theme: resolvedAttrs.theme,
       });
     }
-  };
+  }
+
+  return Main;
 };
