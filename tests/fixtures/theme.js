@@ -6,8 +6,17 @@
 
 export default {
   styles: {
+    root: {
+      color: 'green',
+    },
     header: {
       color: 'red',
     },
+    stop: {
+      color: 'purple',
+    },
+  },
+  variants: {
+    stop: false,
   },
 };
