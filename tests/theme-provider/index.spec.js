@@ -6,22 +6,15 @@
 
 /* eslint-disable no-console */
 
-import chai from 'chai';
-import dirtyChai from 'dirty-chai';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import ThemeProvider from '../../src/theme-provider';
 import TestComponent from '../fixtures/TestComponent';
 import theme from '../fixtures/theme';
 
-// use dirty chai to avoid unused expressions
-chai.use(dirtyChai);
-const expect = chai.expect;
-
 const props = {
   theme,
 };
-const renderer = ReactTestUtils.createRenderer();
 const error = console.error;
 
 describe('ThemeProvider', () => {
@@ -41,20 +34,20 @@ describe('ThemeProvider', () => {
   });
 
   it('should fail prop type validation for invalid theme', () => {
-    expect(() => <ThemeProvider theme="etse" ><TestComponent /></ThemeProvider>).to.throw();
+    expect(() => <ThemeProvider theme="etse" ><TestComponent /></ThemeProvider>).toThrow();
   });
 
   it('should contain child prop', () => {
     const ProviderComponent = <ThemeProvider {...props}><TestComponent /></ThemeProvider>;
-    const renderedComponent = renderer.render(ProviderComponent);
+    const renderedComponent = shallow(ProviderComponent);
 
-    expect(renderedComponent.props.children).to.exist();
+    expect(renderedComponent.prop('children')).toBeTruthy();
   });
 
   it('should not contain child prop', () => {
     const ProviderComponent = <ThemeProvider {...props} />;
-    const renderedComponent = renderer.render(ProviderComponent);
+    const renderedComponent = shallow(ProviderComponent);
 
-    expect(renderedComponent.props.children).to.not.exist();
+    expect(renderedComponent.prop('children')).toBeUndefined();
   });
 });
