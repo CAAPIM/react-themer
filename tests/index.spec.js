@@ -10,8 +10,14 @@ import { create as createThemer } from 'ca-ui-themer';
 import reactThemer, { create as createReactThemer } from '../src';
 import TestComponent from './fixtures/TestComponent';
 import theme from './fixtures/theme';
+import functionTheme from './fixtures/functionTheme';
+import globalTheme from './fixtures/globalTheme';
 
 describe('reactThemer', () => {
+  it('should throw if no component is passed', () => {
+    expect(reactThemer(theme)).toThrow();
+  });
+
   it('should pass back the display name and theme as a prop', () => {
     const themerReactClass = reactThemer(theme)(TestComponent);
     const renderedComponent = mount(React.createElement(themerReactClass));
@@ -57,5 +63,38 @@ describe('reactThemer', () => {
     mount(React.createElement(themerReactClass));
 
     expect(mockMiddleware.mock.calls.length).toBe(1);
+  });
+
+  it('should use global theme vars if theme context is defined', () => {
+    const themerReactClass = reactThemer(functionTheme)(TestComponent);
+    const renderedComponent = mount(React.createElement(themerReactClass), {
+      context: { theme: globalTheme },
+    });
+
+    const renderedThemeProp = renderedComponent.find(TestComponent).prop('theme');
+    expect(renderedThemeProp.styles.header.color).toBe(globalTheme.variables.mainColor);
+  });
+
+  it('should call resolveAttributes only once', () => {
+    const themer = createThemer();
+
+    // override resolveAttributes with spy function
+    const resolveAttributesSpy = jest.fn().mockImplementation(
+      (...args) => themer.resolveAttributes(...args)
+    );
+    const themerSpy = { resolveAttributes: resolveAttributesSpy };
+
+    // create themed component
+    const themerReactClass = createReactThemer(themerSpy)(theme)(TestComponent);
+
+    // render themed component twice
+    mount(
+      <div>
+        <div>{React.createElement(themerReactClass)}</div>
+        <div>{React.createElement(themerReactClass)}</div>
+      </div>
+    );
+
+    expect(resolveAttributesSpy.mock.calls.length).toBe(1);
   });
 });

@@ -6,57 +6,18 @@
 // @flow
 
 import React from 'react';
-import { isFunction } from 'lodash';
+import { themer } from 'ca-ui-themer';
 
-let currentThemeId;
-let componentThemeStyles;
-let DecoratedComponent;
-
-/**
- * Get styles property from theme object
- *
- * @param  {Object} theme a theme object as defined in 'themer'
- * @return {Object} the styles property from the them objet
- * @public
- */
-const getThemeStyles = (theme: Object) => {
-  if (isFunction(theme.styles)) {
-    return theme.styles(theme.variables);
-  }
-
-  return theme.styles;
-};
-
-/**
- * Recalculate theme styles if themeId has changed
- *
- * @param  {Object} options.theme  a theme object as defined in 'themer'
- * @param  {int} options.themeId a themeId as defined in 'themer'
- * @param  {Funtion} options.decorator an optional decorator function to be used
- * @return {[type]}                   [description]
- * @public
- */
-const calculateComponentThemeStyles = ({ theme, themeId, decorator }: Object) => {
-  const WrappedComponent = ({ children }) => React.Children.only(children);
-
-  if (!DecoratedComponent || (themeId && currentThemeId !== themeId)) {
-    if (theme && theme.styles) {
-      componentThemeStyles = getThemeStyles(theme);
-    } else {
-      componentThemeStyles = null;
-    }
-
-    if (isFunction(decorator) && componentThemeStyles) {
-      DecoratedComponent = decorator(componentThemeStyles)(WrappedComponent);
-    } else {
-      DecoratedComponent = WrappedComponent;
-    }
-  }
-};
+const OnlyChildren = ({ children }) => (
+  children ?
+    React.Children.only(children) :
+    null
+);
 
 export default class ThemeProvider extends React.Component {
   static propTypes = {
     theme: React.PropTypes.object.isRequired,
+    themer: React.PropTypes.object,
     children: React.PropTypes.node,
   };
 
@@ -71,12 +32,15 @@ export default class ThemeProvider extends React.Component {
   }
 
   componentWillMount() {
-    calculateComponentThemeStyles(this.props);
+    const themerInstance = this.props.themer || themer;
+
+    // Fetch the resolved Component and theme from the themerInstance
+    this.resolvedAttrs = themerInstance.resolveAttributes(OnlyChildren, [this.props.theme]);
   }
 
+  resolvedAttrs: Object = {};
+
   render() {
-    return (
-      <DecoratedComponent>{this.props.children}</DecoratedComponent>
-    );
+    return React.createElement(this.resolvedAttrs.snippet, {}, this.props.children);
   }
 }

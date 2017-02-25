@@ -10,6 +10,10 @@ import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from '../utils';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
+  if (!component) {
+    throw new Error('ca-ui-react-themer: a component is required');
+  }
+
   let rawThemerAttrs: Object;
   if (
     component.rawThemerAttrs &&
@@ -31,10 +35,9 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
   const themerInstance = customThemer || themer;
 
   let resolvedAttrs;
-  let themesToResolve;
 
   return class extends Component {
-    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component) || 'Component'})`;
+    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component)})`;
     static rawThemerAttrs = rawThemerAttrs;
 
     static contextTypes = {
@@ -42,19 +45,17 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
     };
 
     componentWillMount() {
-      const { theme: globalTheme } = this.context;
-
-      if (!resolvedAttrs) {
-        // Merge global theme vars with the current theme if necessary
-        if (globalTheme && globalTheme.variables) {
-          themesToResolve = [{ variables: globalTheme.variables }, ...rawThemerAttrs.themes];
-        } else {
-          themesToResolve = rawThemerAttrs.themes;
-        }
-
-        // Fetch the resolved Component and theme from the themerInstance
-        resolvedAttrs = themerInstance.resolveAttributes(rawThemerAttrs.component, themesToResolve);
+      if (resolvedAttrs) {
+        return;
       }
+
+      // Check if global theme defines any variables
+      const { theme: globalTheme } = this.context;
+      const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : null;
+
+      // Fetch the resolved Component and theme from the themerInstance
+      resolvedAttrs = themerInstance.resolveAttributes(
+        rawThemerAttrs.component, rawThemerAttrs.themes, globalVars);
     }
 
     render() {
