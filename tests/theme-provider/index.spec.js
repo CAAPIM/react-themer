@@ -7,7 +7,7 @@
 /* eslint-disable no-console */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import ThemeProvider from '../../src/theme-provider';
 import TestComponent from '../fixtures/TestComponent';
 import theme from '../fixtures/theme';
@@ -39,14 +39,14 @@ describe('ThemeProvider', () => {
 
   it('should contain child prop', () => {
     const ProviderComponent = <ThemeProvider {...props}><TestComponent /></ThemeProvider>;
-    const renderedComponent = shallow(ProviderComponent);
+    const renderedComponent = mount(ProviderComponent);
 
     expect(renderedComponent.prop('children')).toBeTruthy();
   });
 
   it('should not contain child prop', () => {
     const ProviderComponent = <ThemeProvider {...props} />;
-    const renderedComponent = shallow(ProviderComponent);
+    const renderedComponent = mount(ProviderComponent);
 
     expect(renderedComponent.prop('children')).toBeUndefined();
   });
