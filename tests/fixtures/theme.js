@@ -10,4 +10,7 @@ export default {
       color: 'red',
     },
   },
+  variables: {
+    someColor: 'blue',
+  },
 };

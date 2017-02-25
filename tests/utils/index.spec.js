@@ -4,37 +4,32 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import chai from 'chai';
-import dirtyChai from 'dirty-chai';
 import { getDisplayName } from '../../src/utils';
 import TestComponent from '../fixtures/TestComponent';
 
 // use dirty chai to avoid unused expressions
-chai.use(dirtyChai);
-const expect = chai.expect;
-
 describe('getDisplayName', () => {
   it('should return undefined if no argument is provided', () => {
-    expect(getDisplayName()).to.not.exist();
+    expect(getDisplayName()).toBeUndefined();
   });
 
   it('should return the unchanged argument if a string is passed', () => {
-    expect(getDisplayName('some text here')).to.equal('some text here');
+    expect(getDisplayName('some text here')).toBe('some text here');
   });
 
   it('should return the component display name if defined', () => {
-    expect(getDisplayName(TestComponent)).to.equal('TestComponent');
+    expect(getDisplayName(TestComponent)).toBe('TestComponent');
   });
 
   it('should return the component name property if defined', () => {
-    expect(getDisplayName({ name: 'TestComponentName' })).to.equal('TestComponentName');
+    expect(getDisplayName({ name: 'TestComponentName' })).toBe('TestComponentName');
   });
 
   it('should prioritize displayName over name property', () => {
-    expect(getDisplayName({ displayName: 'TestComponent', name: 'TestComponentName' })).to.equal('TestComponent');
+    expect(getDisplayName({ displayName: 'TestComponent', name: 'TestComponentName' })).toBe('TestComponent');
   });
 
   it('should return "Component" if neither displayName nor name are defined for the component', () => {
-    expect(getDisplayName({})).to.equal('Component');
+    expect(getDisplayName({})).toBe('Component');
   });
 });

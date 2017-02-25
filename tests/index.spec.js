@@ -4,70 +4,58 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
-import chai from 'chai';
-import dirtyChai from 'dirty-chai';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
-import { themer } from 'ca-ui-themer';
+import { mount } from 'enzyme';
+import { create as createThemer } from 'ca-ui-themer';
 import reactThemer, { create as createReactThemer } from '../src';
 import TestComponent from './fixtures/TestComponent';
 import theme from './fixtures/theme';
 
-// use dirty chai to avoid unused expressions
-chai.use(dirtyChai);
-const expect = chai.expect;
-
 describe('reactThemer', () => {
   it('should pass back the display name and theme as a prop', () => {
-    const renderer = ReactTestUtils.createRenderer();
     const themerReactClass = reactThemer(theme)(TestComponent);
-    const renderedComponent = renderer.render(React.createElement(themerReactClass));
+    const renderedComponent = mount(React.createElement(themerReactClass));
 
-    expect(renderedComponent.type.displayName).to.exist();
-    expect(renderedComponent.props.theme.styles).to.exist();
-    expect(renderedComponent.props.theme.variables).to.exist();
+    expect(renderedComponent.name()).toBe('Themer(TestComponent)');
+    expect(renderedComponent.find(TestComponent).prop('theme')).toEqual(theme);
   });
 
   it('should wrap the original component if used twice', () => {
     const themerReactClass = reactThemer(theme)(TestComponent);
     const themerReactClass2 = reactThemer(theme)(themerReactClass);
-    expect(themerReactClass2.displayName).to.equal('Themer(TestComponent)');
+    expect(themerReactClass2.displayName).toBe('Themer(TestComponent)');
   });
 
   it('should ignore the previous rawThemerAttrs if component is not defined', () => {
     const themerReactClass = reactThemer(theme)(TestComponent);
     delete themerReactClass.rawThemerAttrs.component;
     const themerReactClass2 = reactThemer(theme)(themerReactClass);
-    expect(themerReactClass2.displayName).to.equal('Themer(Themer(TestComponent))');
+    expect(themerReactClass2.displayName).toBe('Themer(Themer(TestComponent))');
   });
 
   it('should ignore the previous rawThemerAttrs if themes is not defined', () => {
     const themerReactClass = reactThemer(theme)(TestComponent);
     delete themerReactClass.rawThemerAttrs.themes;
     const themerReactClass2 = reactThemer(theme)(themerReactClass);
-    expect(themerReactClass2.displayName).to.equal('Themer(Themer(TestComponent))');
+    expect(themerReactClass2.displayName).toBe('Themer(Themer(TestComponent))');
   });
 
   it('should ignore the previous rawThemerAttrs if themes is not an array', () => {
     const themerReactClass = reactThemer(theme)(TestComponent);
     themerReactClass.rawThemerAttrs.themes = {};
     const themerReactClass2 = reactThemer(theme)(themerReactClass);
-    expect(themerReactClass2.displayName).to.equal('Themer(Themer(TestComponent))');
+    expect(themerReactClass2.displayName).toBe('Themer(Themer(TestComponent))');
   });
 
   it('should run middleware from passed in Themer instance', () => {
-    const renderer = ReactTestUtils.createRenderer();
-    const themerInstance = themer;
+    const themer = createThemer();
 
-    themerInstance.setTheme([theme]);
+    const mockMiddleware = jest.fn().mockImplementation(component => component);
+    themer.setMiddleware(mockMiddleware);
 
-    themerInstance.setMiddleware((component) => component);
+    const themerReactClass = createReactThemer(themer)(theme)(TestComponent);
+    mount(React.createElement(themerReactClass));
 
-    const themerReactClass = createReactThemer(themerInstance)(theme)(TestComponent);
-    const renderedComponent = renderer.render(React.createElement(themerReactClass));
-
-    expect(renderedComponent.type.displayName).to.exist();
-    expect(renderedComponent.props.theme.styles).to.exist();
-    expect(renderedComponent.props.theme.variables).to.exist();
+    expect(mockMiddleware.mock.calls.length).toBe(1);
   });
 });
