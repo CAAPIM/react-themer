@@ -9,8 +9,8 @@ import TestComponent from '../fixtures/TestComponent';
 
 // use dirty chai to avoid unused expressions
 describe('getDisplayName', () => {
-  it('should return undefined if no argument is provided', () => {
-    expect(getDisplayName()).toBeUndefined();
+  it('should return empty string if falsy argument is provided', () => {
+    expect(getDisplayName(null)).toBe('');
   });
 
   it('should return the unchanged argument if a string is passed', () => {

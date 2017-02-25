@@ -10,6 +10,10 @@ import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from '../utils';
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
+  if (!component) {
+    throw new Error('ca-ui-react-themer: a component is required');
+  }
+
   let rawThemerAttrs: Object;
   if (
     component.rawThemerAttrs &&
@@ -33,7 +37,7 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
   let resolvedAttrs;
 
   return class extends Component {
-    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component) || 'Component'})`;
+    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component)})`;
     static rawThemerAttrs = rawThemerAttrs;
 
     static contextTypes = {
