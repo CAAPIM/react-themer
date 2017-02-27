@@ -62,7 +62,7 @@ describe('reactThemer', () => {
     const themerReactClass = createReactThemer(themer)(theme)(TestComponent);
     mount(React.createElement(themerReactClass));
 
-    expect(mockMiddleware.mock.calls.length).toBe(1);
+    expect(mockMiddleware).toHaveBeenCalledTimes(1);
   });
 
   it('should use global theme vars if theme context is defined', () => {
@@ -95,6 +95,6 @@ describe('reactThemer', () => {
       </div>
     );
 
-    expect(resolveAttributesSpy.mock.calls.length).toBe(1);
+    expect(resolveAttributesSpy).toHaveBeenCalledTimes(1);
   });
 });
