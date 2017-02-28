@@ -6,11 +6,10 @@
 
 export default {
   styles: {
-    header: {
-      color: 'red',
-    },
+    root: 'root-class-123',
   },
   variables: {
     someColor: 'blue',
   },
+  variants: {},
 };

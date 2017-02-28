@@ -5,7 +5,7 @@
  */
 // @flow
 
-import { themer } from 'ca-ui-themer';
+import { themer, mapThemeProps } from 'ca-ui-themer';
 import React, { Component, PropTypes } from 'react';
 import { getDisplayName } from '../utils';
 
@@ -59,10 +59,10 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
     }
 
     render() {
-      return React.createElement(resolvedAttrs.snippet, {
-        ...this.props,
-        theme: resolvedAttrs.theme,
-      });
+      return React.createElement(
+        resolvedAttrs.snippet,
+        mapThemeProps(this.props, resolvedAttrs.theme)
+      );
     }
   };
 };

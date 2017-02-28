@@ -9,7 +9,7 @@ export default {
     color: globalVars.mainColor || 'blue',
   }),
   styles: (_, vars) => ({
-    header: {
+    root: {
       color: vars.color,
     },
   }),
