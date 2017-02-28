@@ -72,7 +72,7 @@ describe('reactThemer', () => {
     });
 
     const renderedThemeProp = renderedComponent.find(TestComponent).prop('theme');
-    expect(renderedThemeProp.styles.header.color).toBe(globalTheme.variables.mainColor);
+    expect(renderedThemeProp.styles.root.color).toBe(globalTheme.variables.mainColor);
   });
 
   it('should call resolveAttributes only once', () => {
