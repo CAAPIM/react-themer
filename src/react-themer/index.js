@@ -5,9 +5,16 @@
  */
 // @flow
 
-import { themer, mapThemeProps } from 'ca-ui-themer';
+import {
+  themer,
+  mapThemeProps,
+  applyVariantsProps,
+} from 'ca-ui-themer';
 import React, { Component, PropTypes } from 'react';
+import mapProps from 'recompose/mapProps';
 import { getDisplayName } from '../utils';
+
+const applyVariantsDecorator = mapProps(applyVariantsProps);
 
 export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
   if (!component) {
@@ -53,9 +60,12 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
       const { theme: globalTheme } = this.context;
       const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : null;
 
+      // apply variants decorator
+      const componentWithVariants = applyVariantsDecorator(rawThemerAttrs.component);
+
       // Fetch the resolved Component and theme from the themerInstance
       resolvedAttrs = themerInstance.resolveAttributes(
-        rawThemerAttrs.component, rawThemerAttrs.themes, globalVars);
+        componentWithVariants, rawThemerAttrs.themes, globalVars);
     }
 
     render() {
