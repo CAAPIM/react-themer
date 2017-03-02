@@ -75,6 +75,25 @@ describe('reactThemer', () => {
     expect(renderedThemeProp.styles.root.color).toBe(globalTheme.variables.mainColor);
   });
 
+  it('should set global vars to undefined if no global theme is defined', () => {
+    const defaultGlobalVars = { mainColor: 'purple' };
+    const testFunctionTheme = {
+      variables: (_, globalVars = defaultGlobalVars) => ({
+        color: globalVars.mainColor || 'blue',
+      }),
+      styles: (_, vars) => ({
+        root: {
+          color: vars.color,
+        },
+      }),
+    };
+    const themerReactClass = reactThemer(testFunctionTheme)(TestComponent);
+    const renderedComponent = mount(React.createElement(themerReactClass));
+
+    const renderedThemeProp = renderedComponent.find(TestComponent).prop('theme');
+    expect(renderedThemeProp.styles.root.color).toBe(defaultGlobalVars.mainColor);
+  });
+
   it('should call resolveAttributes only once', () => {
     const themer = createThemer();
 
