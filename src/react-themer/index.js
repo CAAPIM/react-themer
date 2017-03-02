@@ -58,7 +58,7 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
 
       // Check if global theme defines any variables
       const { theme: globalTheme } = this.context;
-      const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : null;
+      const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : undefined;
 
       // apply variants decorator
       const componentWithVariants = applyVariantsDecorator(rawThemerAttrs.component);
