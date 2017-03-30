@@ -4,15 +4,21 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
+// @flow
+
 import React from 'react';
 
 export default class TestComponent extends React.Component {
 
-  static displayName = 'TestComponent';
+  componentWillMount() {
+    this.test = 'Test';
+  }
+
+  test: string;
 
   render() {
     return (
-      <div>Test</div>
+      <div>{this.test}</div>
     );
   }
 

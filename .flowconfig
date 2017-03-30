@@ -1,10 +1,8 @@
-[options]
-sharedmemory.hash_table_pow=19
-
 [ignore]
-.*/coverage/.*
-.*/flow-coverage/.*
-.*/lib/.*
-.*/tests/.*
-.*/test/.*
+<PROJECT_ROOT>/coverage/.*
+<PROJECT_ROOT>/flow-coverage/.*
+<PROJECT_ROOT>/lib/.*
 .*/node_modules/findup/.*
+.*/node_modules/config-chain/.*
+.*/node_modules/npmconf/.*
+.*/node_modules/flow-coverage-report/.*

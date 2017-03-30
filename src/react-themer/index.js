@@ -16,7 +16,9 @@ import { getDisplayName } from '../utils';
 
 const applyVariantsDecorator = mapProps(applyVariantsProps);
 
-export default (customThemer: ?Object) => (theme?: Object) => (component: React.Element<*>) => {
+export default (customThemer: ?Object) => (theme?: Object) => (
+  component: Component<any, any, any> | Function,
+) => {
   if (!component) {
     throw new Error('ca-ui-react-themer: a component is required');
   }
@@ -71,7 +73,7 @@ export default (customThemer: ?Object) => (theme?: Object) => (component: React.
     render() {
       return React.createElement(
         resolvedAttrs.snippet,
-        mapThemeProps(this.props, resolvedAttrs.theme)
+        mapThemeProps(this.props, resolvedAttrs.theme),
       );
     }
   };
