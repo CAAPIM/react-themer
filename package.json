@@ -19,17 +19,19 @@
     "test:coverage": "jest --coverage",
     "flow": "flow check",
     "flow:coverage": "flow-coverage-report -i './src/**/*.js' -t html -t text",
+    "flow:copy": "flow-copy-source src lib",
     "commit": "git-cz",
     "prebuild": "rimraf ./lib",
-    "build": "babel --out-dir ./lib --ignore *.spec.js, ./src",
+    "compile": "babel --out-dir ./lib --ignore *.spec.js, ./src",
+    "build": "npm run compile && npm run flow:copy",
     "release": "semantic-release pre && npm publish && semantic-release post",
     "commitmsg": "validate-commit-msg",
-    "precommit": "npm run lint && npm run test"
+    "precommit": "npm run lint && npm run flow && npm run test"
   },
   "dependencies": {
     "ca-ui-themer": "^2.1.1",
     "lodash": "^4.17.2",
-    "recompose": ">=0.5.0"
+    "recompose": "^0.22.0"
   },
   "peerDependencies": {
     "react": ">=0.14"
@@ -39,15 +41,16 @@
     "babel-eslint": "^7.1.1",
     "babel-preset-ca": "^1.0.0",
     "babel-register": "^6.18.0",
-    "codecov": "1.0.1",
-    "commitizen": "2.8.6",
-    "cz-conventional-changelog": "1.2.0",
+    "codecov": "2.1.0",
+    "commitizen": "2.9.6",
+    "cz-conventional-changelog": "2.0.0",
     "enzyme": "^2.7.1",
     "eslint": "^3.11.1",
-    "eslint-config-ca": "^1.0.0",
-    "flow-bin": "^0.36.0",
-    "flow-coverage-report": "^0.2.0",
-    "husky": "^0.11.9",
+    "eslint-config-ca": "^2.0.0",
+    "flow-bin": "^0.42.0",
+    "flow-copy-source": "^1.1.0",
+    "flow-coverage-report": "^0.3.0",
+    "husky": "^0.13.3",
     "jest": "^19.0.2",
     "react": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",

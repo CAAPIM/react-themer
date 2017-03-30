@@ -4,11 +4,13 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
+// @flow
+
 export default {
-  variables: (_, globalVars) => ({
+  variables: (vars: Object, globalVars?: Object = {}) => ({
     color: globalVars.mainColor || 'blue',
   }),
-  styles: (_, vars) => ({
+  styles: (styles: Object, vars?: Object = {}) => ({
     root: {
       color: vars.color,
     },

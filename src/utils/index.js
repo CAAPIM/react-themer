@@ -14,7 +14,7 @@
  * @return {string}        The name of the component as a string
  * @public
  */
-export function getDisplayName(Component?: string | Object): string {
+export function getDisplayName(Component?: ?string | Object): string {
   if (typeof Component === 'string') {
     return Component;
   }

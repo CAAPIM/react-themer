@@ -4,6 +4,8 @@
  * of the MIT license. See the LICENSE file for details.
  */
 
+// @flow
+
 import React from 'react';
 import { mount } from 'enzyme';
 import { create as createThemer } from 'ca-ui-themer';
@@ -99,7 +101,7 @@ describe('reactThemer', () => {
 
     // override resolveAttributes with spy function
     const resolveAttributesSpy = jest.fn().mockImplementation(
-      (...args) => themer.resolveAttributes(...args)
+      (...args) => themer.resolveAttributes(...args),
     );
     const themerSpy = { resolveAttributes: resolveAttributesSpy };
 
@@ -111,7 +113,7 @@ describe('reactThemer', () => {
       <div>
         <div>{React.createElement(themerReactClass)}</div>
         <div>{React.createElement(themerReactClass)}</div>
-      </div>
+      </div>,
     );
 
     expect(resolveAttributesSpy).toHaveBeenCalledTimes(1);
