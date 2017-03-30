@@ -16,65 +16,71 @@ import { getDisplayName } from '../utils';
 
 const applyVariantsDecorator = mapProps(applyVariantsProps);
 
-export default (customThemer: ?Object) => (theme?: Object) => (
-  component: Component<any, any, any> | Function,
-) => {
-  if (!component) {
-    throw new Error('ca-ui-react-themer: a component is required');
-  }
-
-  let rawThemerAttrs: Object;
-  if (
-    component.rawThemerAttrs &&
-    component.rawThemerAttrs.component &&
-    component.rawThemerAttrs.themes &&
-    Array.isArray(component.rawThemerAttrs.themes)
-  ) {
-    rawThemerAttrs = {
-      component: component.rawThemerAttrs.component,
-      themes: [...component.rawThemerAttrs.themes, theme],
-    };
-  } else {
-    rawThemerAttrs = {
-      component,
-      themes: [theme],
-    };
-  }
-
+export default (customThemer: ?Object) => {
   const themerInstance = customThemer || themer;
 
-  let resolvedAttrs;
+  const reactThemerJss = (theme?: Object) => (
+    component: Component<any, any, any> | Function,
+  ) => {
+    if (!component) {
+      throw new Error('ca-ui-react-themer: a component is required');
+    }
 
-  return class extends Component {
-    static displayName = `Themer(${getDisplayName(rawThemerAttrs.component)})`;
-    static rawThemerAttrs = rawThemerAttrs;
+    let rawThemerAttrs: Object;
+    if (
+      component.rawThemerAttrs &&
+      component.rawThemerAttrs.component &&
+      component.rawThemerAttrs.themes &&
+      Array.isArray(component.rawThemerAttrs.themes)
+    ) {
+      rawThemerAttrs = {
+        component: component.rawThemerAttrs.component,
+        themes: [...component.rawThemerAttrs.themes, theme],
+      };
+    } else {
+      rawThemerAttrs = {
+        component,
+        themes: [theme],
+      };
+    }
 
-    static contextTypes = {
-      theme: PropTypes.object,
-    };
+    let resolvedAttrs;
 
-    componentWillMount() {
-      if (resolvedAttrs) {
-        return;
+    return class extends Component {
+      static displayName = `Themer(${getDisplayName(rawThemerAttrs.component)})`;
+      static rawThemerAttrs = rawThemerAttrs;
+
+      static contextTypes = {
+        theme: PropTypes.object,
+      };
+
+      componentWillMount() {
+        if (resolvedAttrs) {
+          return;
+        }
+
+        // Check if global theme defines any variables
+        const { theme: globalTheme } = this.context;
+        const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : undefined;
+
+        // apply variants decorator
+        const componentWithVariants = applyVariantsDecorator(rawThemerAttrs.component);
+
+        // Fetch the resolved Component and theme from the themerInstance
+        resolvedAttrs = themerInstance.resolveAttributes(
+          componentWithVariants, rawThemerAttrs.themes, globalVars);
       }
 
-      // Check if global theme defines any variables
-      const { theme: globalTheme } = this.context;
-      const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : undefined;
-
-      // apply variants decorator
-      const componentWithVariants = applyVariantsDecorator(rawThemerAttrs.component);
-
-      // Fetch the resolved Component and theme from the themerInstance
-      resolvedAttrs = themerInstance.resolveAttributes(
-        componentWithVariants, rawThemerAttrs.themes, globalVars);
-    }
-
-    render() {
-      return React.createElement(
-        resolvedAttrs.snippet,
-        mapThemeProps(this.props, resolvedAttrs.theme),
-      );
-    }
+      render() {
+        return React.createElement(
+          resolvedAttrs.snippet,
+          mapThemeProps(this.props, resolvedAttrs.theme),
+        );
+      }
+    };
   };
+
+  reactThemerJss.themer = themerInstance;
+
+  return reactThemerJss;
 };

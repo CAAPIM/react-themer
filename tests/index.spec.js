@@ -9,6 +9,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { create as createThemer } from 'ca-ui-themer';
+import Themer from 'ca-ui-themer/lib/Themer';
 import reactThemer, { create as createReactThemer } from '../src';
 import TestComponent from './fixtures/TestComponent';
 import theme from './fixtures/theme';
@@ -117,5 +118,9 @@ describe('reactThemer', () => {
     );
 
     expect(resolveAttributesSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should expose themer instance', () => {
+    expect(reactThemer.themer).toBeInstanceOf(Themer);
   });
 });
