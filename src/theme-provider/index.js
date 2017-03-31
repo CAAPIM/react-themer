@@ -15,6 +15,11 @@ type Props = {
   children?: ?React.Element<*>,
 };
 
+type DefaultProps = {
+  themer?: ?Object,
+  children?: ?React.Element<*>,
+};
+
 const OnlyChildren = ({ children }) => (
   children ?
     React.Children.only(children) :
@@ -22,7 +27,7 @@ const OnlyChildren = ({ children }) => (
 );
 
 export default class ThemeProvider extends React.Component {
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     themer: null,
     children: null,
   };
