@@ -31,7 +31,7 @@
   "dependencies": {
     "ca-ui-themer": "^2.1.1",
     "lodash": "^4.17.2",
-    "recompose": "^0.22.0"
+    "recompose": "^0.23.0"
   },
   "peerDependencies": {
     "react": ">=0.14"
