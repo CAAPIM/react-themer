@@ -29,7 +29,7 @@
     "precommit": "npm run lint && npm run flow && npm run test"
   },
   "dependencies": {
-    "ca-ui-themer": "^2.1.1",
+    "ca-ui-themer": "2.2.1",
     "lodash": "^4.17.2",
     "recompose": "^0.22.0"
   },
