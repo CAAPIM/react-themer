@@ -28,6 +28,6 @@ describe('ThemeProvider', () => {
     const ProviderComponent = <ThemeProvider {...props} />;
     const renderedComponent = mount(ProviderComponent);
 
-    expect(renderedComponent.prop('children')).toBeNull();
+    expect(renderedComponent.prop('children')).toBeUndefined();
   });
 });
