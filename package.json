@@ -29,35 +29,36 @@
     "precommit": "npm run lint && npm run flow && npm run test"
   },
   "dependencies": {
-    "ca-ui-themer": "^2.1.1",
-    "lodash": "^4.17.2",
-    "recompose": "^0.22.0"
+    "ca-ui-themer": "^2.3.0",
+    "lodash": "^4.17.4",
+    "react-flow-types": "^0.1.1",
+    "recompose": ">=0.5.0"
   },
   "peerDependencies": {
     "react": ">=0.14"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-eslint": "^7.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
     "babel-preset-ca": "^1.1.0",
-    "babel-register": "^6.18.0",
+    "babel-register": "^6.24.1",
     "codecov": "2.1.0",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
-    "enzyme": "^2.7.1",
-    "eslint": "^3.11.1",
-    "eslint-config-ca": "^2.0.0",
+    "enzyme": "^2.8.1",
+    "eslint": "^3.19.0",
+    "eslint-config-ca": "^2.0.1",
     "flow-bin": "^0.43.1",
     "flow-copy-source": "^1.1.0",
     "flow-coverage-report": "^0.3.0",
     "husky": "^0.13.3",
     "jest": "^19.0.2",
-    "react": "^15.4.1",
-    "react-addons-test-utils": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "rimraf": "^2.5.4",
+    "react": "15.4.1",
+    "react-addons-test-utils": "15.4.1",
+    "react-dom": "15.4.1",
+    "rimraf": "^2.6.1",
     "semantic-release": "^6.3.2",
-    "validate-commit-msg": "^2.8.2"
+    "validate-commit-msg": "^2.12.1"
   },
   "config": {
     "validate-commit-msg": {
