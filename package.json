@@ -35,7 +35,7 @@
     "recompose": ">=0.5.0"
   },
   "peerDependencies": {
-    "react": ">=0.14"
+    "react": ">=15.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
