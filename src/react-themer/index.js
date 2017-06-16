@@ -116,13 +116,19 @@ const createWithTheme = (themerInstance: Object) => (theme?: Object): WithThemeD
      * @return {void}
      */
     componentWillMount() {
+      // Check if global theme defines any variables
+      const { theme: globalTheme } = this.context;
+
+      // Get global theme ID
+      const globalThemeId = globalTheme && globalTheme.id ? globalTheme.id : undefined;
+
       // check if resolved theme attributes are already available
-      if (resolvedAttrsCache) {
+      // check if theme ID has changed
+      if (resolvedAttrsCache && resolvedAttrsCache.id === globalThemeId) {
         return;
       }
 
       // Check if global theme defines any variables
-      const { theme: globalTheme } = this.context;
       const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : undefined;
 
       // apply variants decorator
@@ -131,6 +137,9 @@ const createWithTheme = (themerInstance: Object) => (theme?: Object): WithThemeD
       // Fetch the resolved Component and theme from the themerInstance
       resolvedAttrsCache = themerInstance.resolveAttributes(
         componentWithVariants, rawThemerAttrs.themes, globalVars);
+
+      // cache global theme ID
+      resolvedAttrsCache.id = globalThemeId;
     }
 
     /**
