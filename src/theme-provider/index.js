@@ -7,6 +7,7 @@
 // @flow
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { themer } from 'ca-ui-themer';
 
 type Props = {
@@ -24,7 +25,7 @@ const OnlyChildren = ({ children }) => (
 export default class ThemeProvider extends React.Component {
 
   static childContextTypes = {
-    theme: React.PropTypes.object,
+    theme: PropTypes.object,
   };
 
   getChildContext() {

@@ -31,6 +31,7 @@
   "dependencies": {
     "ca-ui-themer": "^2.3.0",
     "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
     "react-flow-types": "^0.1.1",
     "recompose": ">=0.5.0"
   },
