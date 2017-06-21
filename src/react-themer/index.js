@@ -11,7 +11,8 @@ import {
   mapThemeProps,
   applyVariantsProps,
 } from 'ca-ui-themer';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import mapProps from 'recompose/mapProps';
 
 import type { ProvidedThemeProps } from 'ca-ui-themer';
