@@ -59,7 +59,7 @@
     "react-dom": "15.4.1",
     "rimraf": "^2.6.1",
     "semantic-release": "^6.3.6",
-    "validate-commit-msg": "^2.12.2"
+    "validate-commit-msg": "^2.13.1"
   },
   "config": {
     "validate-commit-msg": {
