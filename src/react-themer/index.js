@@ -14,6 +14,8 @@ import {
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import mapProps from 'recompose/mapProps';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 
 import type { ProvidedThemeProps } from 'ca-ui-themer';
 import type { HigherOrderComponent } from 'react-flow-types';
@@ -88,6 +90,11 @@ const createWithTheme = (themerInstance: Object) => (theme?: Object): WithThemeD
   let resolvedAttrsCache;
 
   /**
+   * Maintain a record of the current theme to compare future iterations against
+   */
+  let currentTheme;
+
+  /**
    * Create decorated class component
    */
   class DecoratedClassComponent extends Component {
@@ -119,6 +126,7 @@ const createWithTheme = (themerInstance: Object) => (theme?: Object): WithThemeD
     componentWillMount() {
       // Check if global theme defines any variables
       const { theme: globalTheme } = this.context;
+      currentTheme = globalTheme;
 
       // Get global theme ID
       const globalThemeId = globalTheme && globalTheme.id ? globalTheme.id : undefined;
@@ -128,6 +136,39 @@ const createWithTheme = (themerInstance: Object) => (theme?: Object): WithThemeD
       if (resolvedAttrsCache && resolvedAttrsCache.id === globalThemeId) {
         return;
       }
+
+      // Check if global theme defines any variables
+      const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : undefined;
+
+      // apply variants decorator
+      const componentWithVariants = applyVariantsDecorator(rawThemerAttrs.component);
+
+      // Fetch the resolved Component and theme from the themerInstance
+      resolvedAttrsCache = themerInstance.resolveAttributes(
+        componentWithVariants, rawThemerAttrs.themes, globalVars);
+
+      // cache global theme ID
+      resolvedAttrsCache.id = globalThemeId;
+    }
+
+    /**
+     * Resolve component themes when component updates and a new theme is present
+     * @return {void}
+     */
+    componentDidUpdate() {
+      // Check if global theme defines any variables
+      const { theme: globalTheme } = this.context;
+
+      // Get global theme ID
+      const globalThemeId = globalTheme && globalTheme.id ? globalTheme.id : undefined;
+
+      // check if currentTheme associated the the component matches the global.
+      // If not, update the currentTheme
+      if (isEmpty(currentTheme) || isEmpty(globalTheme) || isEqual(currentTheme, globalTheme)) {
+        return;
+      }
+
+      currentTheme = globalTheme;
 
       // Check if global theme defines any variables
       const globalVars = globalTheme && globalTheme.variables ? globalTheme.variables : undefined;
