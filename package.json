@@ -58,7 +58,7 @@
     "react-addons-test-utils": "15.4.1",
     "react-dom": "15.4.1",
     "rimraf": "^2.6.1",
-    "semantic-release": "^6.3.6",
+    "semantic-release": "^12.4.1",
     "validate-commit-msg": "^2.12.2"
   },
   "config": {
