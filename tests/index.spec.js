@@ -7,7 +7,8 @@
 // @flow
 
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import { create as createThemer } from 'ca-ui-themer';
 import Themer from 'ca-ui-themer/lib/Themer';
 import reactThemer, { create as createReactThemer } from '../src';
@@ -15,6 +16,9 @@ import TestComponent from './fixtures/TestComponent';
 import theme from './fixtures/theme';
 import functionTheme from './fixtures/functionTheme';
 import globalTheme from './fixtures/globalTheme';
+
+Enzyme.configure({ adapter: new Adapter() });
+const { mount } = Enzyme;
 
 describe('reactThemer', () => {
   it('should throw if no component is passed', () => {
@@ -123,9 +127,9 @@ describe('reactThemer', () => {
     const themer = createThemer();
 
     // override resolveAttributes with spy function
-    const resolveAttributesSpy = jest.fn().mockImplementation(
-      (...args) => themer.resolveAttributes(...args),
-    );
+    const resolveAttributesSpy = jest
+      .fn()
+      .mockImplementation((...args) => themer.resolveAttributes(...args));
     const themerSpy = { resolveAttributes: resolveAttributesSpy };
 
     // create themed component

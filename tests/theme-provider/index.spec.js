@@ -7,10 +7,14 @@
 // @flow
 
 import React from 'react';
-import { mount } from 'enzyme';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import ThemeProvider from '../../src/theme-provider';
 import TestComponent from '../fixtures/TestComponent';
 import theme from '../fixtures/theme';
+
+Enzyme.configure({ adapter: new Adapter() });
+const { mount } = Enzyme;
 
 const props = {
   theme,
@@ -18,7 +22,11 @@ const props = {
 
 describe('ThemeProvider', () => {
   it('should contain child prop', () => {
-    const ProviderComponent = <ThemeProvider {...props}><TestComponent /></ThemeProvider>;
+    const ProviderComponent = (
+      <ThemeProvider {...props}>
+        <TestComponent />
+      </ThemeProvider>
+    );
     const renderedComponent = mount(ProviderComponent);
 
     expect(renderedComponent.prop('children')).toBeTruthy();
