@@ -58,7 +58,7 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "rimraf": "^2.6.1",
-    "semantic-release": "^6.3.6",
+    "semantic-release": "^15.1.2",
     "validate-commit-msg": "^2.12.2"
   },
   "config": {
