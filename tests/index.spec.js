@@ -101,28 +101,6 @@ describe('reactThemer', () => {
     expect(renderedThemeProp.styles.root.color).toBe(defaultGlobalVars.mainColor);
   });
 
-  it('should update currentTheme on componentDidUpdate', () => {
-    const themerReactClass = reactThemer(functionTheme)(TestComponent);
-    const renderedComponent = mount(React.createElement(themerReactClass), {
-      context: { theme: globalTheme },
-    });
-    const newTheme = {
-      variables: {
-        mainColor: 'salmon',
-      },
-    };
-    const renderedThemeProp = renderedComponent.find(TestComponent).prop('theme');
-
-    expect(renderedThemeProp.styles.root.color).toBe(globalTheme.variables.mainColor);
-
-    renderedComponent.setContext({ theme: newTheme });
-    renderedComponent.setProps({ theme: newTheme });
-
-    const reRenderedThemeProp = renderedComponent.find(TestComponent).prop('theme');
-
-    expect(reRenderedThemeProp.styles.root.color).toBe(newTheme.variables.mainColor);
-  });
-
   it('should call resolveAttributes only once', () => {
     const themer = createThemer();
 
