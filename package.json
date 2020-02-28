@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^10.1.0",
     "babel-preset-ca": "^1.1.3",
     "babel-register": "^6.24.1",
     "codecov": "2.2.0",
